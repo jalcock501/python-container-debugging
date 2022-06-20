@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "container_run",
+            "command": "img_name=`docker build -q $(while IFS= read -r line; do if [ ! -z \"$line\" ]; then echo -n \"--build-arg $line \"; fi; done < .env) .` && docker run -d --rm --name debugpy -p 5678:5678 -p 8080:80 -e PYDEFSEC_LOGGER_DISABLED=1 --entrypoint /bin/sh $img_name -c 'python -m debugpy --wait-for-client --listen 0.0.0.0:5678 .'"
+        },
+        {
+            "type": "shell",
+            "label": "container_kill",
+            "command": "docker kill debugpy || true"
+        },
+        {
+            "type": "shell",
+            "label": "compose_up",
+            "command": "docker-compose up -d --build"
+        },
+        {
+            "type": "shell",
+            "label": "compose_down",
+            "command": "docker-compose down -t 0"
+        }
+    ]
+}

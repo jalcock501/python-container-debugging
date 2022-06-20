@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+
+  debugpy:
+    build:
+      context: .
+      args:
+        - SOFTWAREDEPOT_URL=${SOFTWAREDEPOT_URL}
+        - SOFTWAREDEPOT_USER=${SOFTWAREDEPOT_USER}
+        - SOFTWAREDEPOT_PASS=${SOFTWAREDEPOT_PASS}
+    ports:
+      - 5678:5678
+    env_file:
+      - .env
+    entrypoint: /bin/sh
+    command: -c "pip install debugpy && python -m debugpy --wait-for-client --listen 0.0.0.0:5678 ."

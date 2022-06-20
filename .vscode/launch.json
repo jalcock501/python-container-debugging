@@ -1,0 +1,57 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "container",
+            "type": "python",
+            "request": "attach",
+            "host": "localhost",
+            "port": 5678,
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "/project"
+                }
+            ],
+            "preLaunchTask": "container_run",
+            "postDebugTask": "container_kill"
+        },
+        {
+            "name": "docker-compose",
+            "type": "python",
+            "request": "attach",
+            "host": "localhost",
+            "port": 5678,
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "/project"
+                }
+            ],
+            "preLaunchTask": "compose_up",
+            "postDebugTask": "compose_down"
+        },
+        {
+            "name": "__main__.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "uvicorn",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "api.__main__:api",
+                "--reload",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8080"
+            ]
+        }
+    ]
+}
