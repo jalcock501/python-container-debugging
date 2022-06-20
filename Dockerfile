@@ -1,7 +1,6 @@
 FROM python:alpine
 
 RUN apk update
-RUN pip config set global.extra-index-url https://$SOFTWAREDEPOT_USER:$SOFTWAREDEPOT_PASS@$SOFTWAREDEPOT_URL
 RUN pip install debugpy
 
 ADD . /project
